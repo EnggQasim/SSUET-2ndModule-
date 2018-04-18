@@ -1,0 +1,5 @@
+http://stackoverflow.com/questions/38896424/tensorflow-not-found-in-pip
+https://github.com/tensorflow/tensorflow/issues/1402
+
+http://www.lfd.uci.edu/~gohlke/pythonlibs/#tensorflow
+pip install tensorflow-1.0.0-cp36-cp36m-win_amd64.whl

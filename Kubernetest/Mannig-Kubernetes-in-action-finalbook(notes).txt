@@ -1,0 +1,115 @@
+===Book Kubernetes in Action===
+Athour Name : Marko Luksa
+
+How this book is organized: a roadmap
+This book has three parts that cover 18 chapters.
+ Part 1 gives a short introduction to Docker and Kubernetes, how to set up a Kubernetes
+cluster, and how to run a simple application in it. It contains two chapters:(1 to 2)
+
+Part 2 introduces the key concepts you must understand to run applications in Kubernetes.
+The chapters are as follows:(3 to 10)
+
+Part 3 dives deep into the internals of a Kubernetes cluster, introduces some additional
+concepts, and reviews everything you’ve learned in the first two parts from a
+higher perspective. This is the last group of chapters:(11 to 18)
+
+====Chapter no1===
+1.1.1 Moving from monolithic apps to microservices
+Monolithic applications consist of components that are all tightly coupled together and
+have to be developed, deployed, and managed as one entity, because they all run as a single
+OS process. Changes to one part of the application require a redeployment of the
+whole application, and over time the lack of hard boundaries between the parts results
+in the increase of complexity and consequential deterioration of the quality of the whole
+system because of the unconstrained growth of inter-dependencies between these parts. 
+
+ RESTful (REpresentational State Transfer) APIss, or through asynchronous
+protocols such as AMQP (Advanced Message Queueing Protocol).
+
+Google Developed System called Brog or Omega:
+ Through the years, Google developed an internal system called Borg (and later a new
+system called Omega), that helped both application developers and system administrators
+manage those thousands of applications and services. After having kept Borg and Omega secret for a whole decade, in 2014 Google
+introduced Kubernetes, an open-source system based on the experience gained
+through Borg, Omega, and other internal Google systems. 
+=>HELPING DEVELOPERS FOCUS ON THE CORE APP FEATURES:
+ This includes
+things such as service discovery, scaling, load-balancing, self-healing, and even leader  election. Application developers can therefore focus on implementing the actual features
+of the applications and not waste time figuring out how to integrate them with
+the infrastructure.
+=>HELPING OPS TEAMS ACHIEVE BETTER RESOURCE UTILIZATION:
+Kubernetes can
+relocate the app at any time, and by mixing and matching apps, achieve far better
+resource utilization than is possible with manual scheduling
+
+1.3.3 Understanding the architecture of a Kubernetes cluster
+We’ve seen a bird’s-eye view of Kubernetes’ architecture. Now let’s take a closer look at
+what a Kubernetes cluster is composed of. At the hardware level, a Kubernetes cluster
+is composed of many nodes, which can be split into two types:
+? The master node, which hosts the Kubernetes Control Plane that controls and manages
+the whole Kubernetes system
+? Worker nodes that run the actual applications you deploy
+
+=>THE NODES
+The worker nodes are the machines that run your containerized applications. The
+task of running, monitoring, and providing services to your applications is done by
+the following components:
+? Docker, rkt, or another container runtime, which runs your containers
+? The Kubelet, which talks to the API server and manages containers on its node
+? The Kubernetes Service Proxy (kube-proxy), which load-balances network traffic
+between application components
+=>PODS
+how applications are
+deployed in Kubernetes. The app descriptor lists four containers, grouped into three
+sets (these sets are called pods; we’ll explain what they are in chapter 3).
+
+
+======Chapter2===
+$ docker run busybox echo "Hello world"
+Hello World
+
+app.js
+const http = require('http');
+const os = require('os');
+console.log("Kubia server starting...");
+var handler = function(request, response) {
+ console.log("Received request from " + request.connection.remoteAddress);
+ response.writeHead(200);
+ response.end("You've hit " + os.hostname() + "\n");
+};
+var www = http.createServer(handler);
+www.listen(8080);
+
+Dockerfile
+FROM node:7
+ADD app.js /app.js
+ENTRYPOINT ["node", "app.js"]
+
+$ docker build -t kubia .
+$ docker image ls
+$ docker run --name kubia-container -p 8080:8080 -d kubia
+$ curl localhost:8080
+You’ve hit 44d76963e8e1
+$ docker ps
+$ docker inspect kubia-container
+
+$ docker exec -it kubia-container bash
+
+ The -it option is shorthand for two options:
+ -i, which makes sure STDIN is kept open. You need this for entering commands
+into the shell.
+ -t, which allocates a pseudo terminal (TTY).
+
+root@44d76963e8e1:/# ps aux
+$ ps aux | grep app.js
+
+$ docker tag kubia <userID>/kubia
+
+$ docker push luksa/kubia
+$ docker run -p 8080:8080 -d luksa/kubia
+$ docker images | head
+===>Download kubernetest
+link:
+https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
+run command in bash:
+https://kubernetes.io/docs/tasks/tools/install-kubectl/

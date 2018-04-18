@@ -1,0 +1,7 @@
+kubernetes from youtube
+==========Video2
+https://www.youtube.com/watch?v=BDrcUjOczsE&list=PLbG4OyfwIxjFE5Ban_n2JdGad4EDWmisR&index=2
+
+1)Download and install
+https://kubernetes.io/docs/tasks/tools/install-kubectl/
+

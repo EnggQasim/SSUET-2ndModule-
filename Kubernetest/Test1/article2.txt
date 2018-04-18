@@ -1,0 +1,197 @@
+https://martinfowler.com/articles/serverless.html
+=========Serverless Architectures==============
+1) server-less app depend on 3rd party = BackendAsAService(Baas)
+2) our code run on Ephemeral container =FunctionAsAService(Fass)
+3) Best Venders AWS Lambda
+4) Remove Traditional 'always on server' sitting behind an application
+5) reduce operational cost and complexity at cost of vendor dependencies
+============What is ServerLess?
+1) depend 3rd party that manage serverside logic,state e.g (firebase, parse)
+   (Auth0, , aws cognito) etc is called backend as a service
+2) developer still write some amount of serversidelogic unlike Traditional archetectures is state less container that event-triggered, ephemeral and fuly managed by 3rd party (Faas=function as a service)
+	Auth0 they started initially with Baas
+	Auth0 Webtask they entering tha Faas space.
+	Many cases we developed a Baas Shaped, spacially mobile app, 'rich web-based app
+	still need some amount of custom server-side functionality Faas good soluation
+	extend Baas service so Faas is good
+=============Origin of Server-Less
+1) created app don't worry about server hardaware/processes it hosted vendor provied (aws)
+2) first usage terms around 2012 countinous integrations and source control system being hosted as as service. rathter than on company's own server however this usage was about development infrastructure
+3) JasvaScriptip Amazon Web Service open source rename Serverless frame work in 2015
+4) verious serverless verdors are embracing the term for product descritption to job description serverless as a term, for better or for wrose, is here to stay
+
+==========UI-Driven Application===
+	====serverless arthitechture
+some server less concepts expose here.
+1) We have deleted login original application and have replaced it with Baas
+2) Baas product listing different security profile for the client accessing the database it this way from any server resources that may access the database
+3) session now with in a client Ux structure (page navigation, reading from a database and translating that into a usable view etc the client is in fact on well on it way to becoming a SPA.
+4) we can write our custom code on server or client Faas with http request via an API
+ we can port search function from pet store without re-write complete code
+5) purchase function with Faas on server rather than re-implement it in the client. it too is fronted by API getway.
+
+================Message driven applications=====
+ backend services also called user-centric application that need to quickly response
+ Faas environment serveral click in parallel
+
+==============Unpacking function as a service=====
+AWS run code without provisioning or manage servers
+1) run code any type of application or backend service
+2) zero administration 
+3) and scale
+4) your code high availability 
+5) automatically trigger from other AWS services
+6) call it directly from any web or mobile app
+
+1) FaaS is about running back end code without managing you own server or your own server application is different container and PaaS architecture
+	replace click processing server(physical machin, specific application) does'nt neet provisioner server nor an application that is running all the time.
+
+2) AWS lambda function can be implemented 'first class' in javascript python and any JVM language(java, clojure, scala etc) use any language that can compile down to a UNIX process.
+ Faas function do have significant architecture restriction, spacially when it comes to state and execution duration
+
+3) we upload our Code FaaS provider in ZIP or JAR formate then calling proprietary API to initiate the update
+
+4) horizental scalling handle FaaS service provider
+
+5) Function in FaaS are triggered by event types definded by the provider with amazon aws such stimuli include s3 file updates, time(scheduled task)
+
+6) http API getway provider supply with http response (AWS api gatway, Webtask)
+
+===========State=============
+FaaS function is state less 
+pure function transformation
+cross-application cache (eg redis) or network  file store(s3) to store state across request or for further input handle a request
+
+========Execution Duration========
+not allowed to run for longer than 5 minutes
+
+=====Starup Latency====
+10ms to 2minutes
+over 1000 lines of code run in 10-100ms
+jvm function run >10sec
+	infrequently
+	sudden spikes in traffice
+
+=========API Gateway======
+GET/api/cats
+GET/api/dogs
+Beyond purely routing requests API Gateways may also perform authentication, input validation, response code mapping, etc
+One use case for API Gateway + FaaS is for creating http-fronted microservices in a Serverless 
+
+======Tooling=========
+Auth0 Webtask
+Tomasz janczuk
+debuggin and monitoring are tricky in general in serverless apps
+offline and debugin or tracing hard in FaaS
+
+=======Open Source====
+IBM's OpenWhisk
+JS API gateway apps it's definitely worth a look
+Apex project deploy and manage AWS lambda function with ease you can write lambda function with this on other language that not support e.g Go.
+
+=======What isn't Serverless?
+	======== comparison with PaaS
+	adrian cockcroft " if your PaaS can start instance 20ms than run for half a second the call it serverless.
+PaaS we have to care about scaling
+FaaS no need care about scalling and doing less cost
+Given this benenfit, why would you still use a PaaS? There are several reasons but tooling, and maturity of API gateways, are probably the biggest. Furthermore 12-Factor Apps implemented in a PaaS may use an in-app readonly cache for optimization, which isn’t an option for FaaS functions.
+
+	=======comparison with containers
+	Docker, Mesos,Kubernetest provider Amazon ECS and Google container Engine
+	FaaS automatically scaling and manage, transparent
+
+	======NoOps
+	no need sysAdmin or ops team beause your app scalling see vendor provider
+
+
+=========Stored Procedures as a Service
+scrub that one off ther list right away
+since we're dealing with just code
+version is ok own amazon packaging is Flourish
+
+
+==========Benefits=====
+
+==========Reduced operational cost
+outsourcing solution
+Infrastructure as a service
+	BaaS and FaaS
+
+========BaaS - reduced development cost
+Auth0, firebase
+
+===== FaaS- Scaling costs
+pay for the compute that you need, 
+microservice required small load because it breakdown components by logic/domain even operational cost
+
+============DrawBack
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===============Security Concerns======
+This increases your surface area for malicious intent and the likelihood for a successful attack
+
+If using a BaaS Database directly from your mobile platforms you are losing the protective barrier a server-side application provides in a traditional application. 
+
+===============No in-server state for Serverless FaaS
+
+
+
+
+
+
+
+
+
+*****************Article 2*****************
+https://coreos.com/blog/kubernetes-and-containers-in-2018
+
+container and kubernetes no sign of slowing
+google donate kubernetes1.0 to CNCF
+open source velocity to contributers faster in history
+vendor and IT shop used kubernetes for it containerize effort
+CoreOs of cloud
+1) get serious about operationalized security
+	need more security
+	too fargil(kharab) and cumbersome(sanjeda)
+	vulnerability(dangrous)
+2) Coversation around cloud provider lock-in intensifies(taiz hojata hai)
+	sore (zakhum), roped into costly contract
+	IaaS, PaaS, SaaS 72 billion, murmurings(shiqayaty)
+	imposing(nafiz)
+3. Serverless computing springs its trap
+	Aurora Serverless
+	Not only is there no hardware to buy, but there are also no VMs, instances, networks, or application services to manage and maintain.
+	worse(badtar), emerging (Ubharti hwi)
+4. Kubernetes has won. Now witness the rise of Kubernetes apps
+	prominence(ahmiyat)
+	container successfully deploy in production 
+	ubiquitous(hr jagah mojod)
+5. Istio becomes the category winning service mesh for Kubernetes
+	ISTIO (open source project)
+	enables traffic management between services, enforces service identity and access policies, and offers observability into service dependencies and how traffic flows between them
+	auspices(serparasti)
+unveil(be naqab)
+	Prometheus(promotion), lingering

@@ -1,0 +1,28 @@
+docker run -it -v D:\demo1:/notebooks -p 8888:8888 tensorflow/tensorflow
+
+=========Video no2======================
+Basic Docker Fun:
+	- Commands
+		- docker run <image>
+		- docker start <name|id>
+		- docker stop <name |id>
+		- docer ps[-a include stopped containers]
+		- docer rm <name|id>
+
+go to docker terminal
+1) docker login
+2) docker run tutum/hello-world
+3) docker ps
+4) docker run -p 8080:80 tutum/hello-world
+6) docker ps -a
+7) docker rm id(paste)
+8) docker ps -a
+9) docker run -d --name web1 -p 8081:80 tutum/hello-world
+9) docker run -d --name web1 -p 8082:80 tutum/hello-world
+11) http://docker.me:8082
+
+
+
+=========Video no3======================
+boot2docker
+pip install boot2docker

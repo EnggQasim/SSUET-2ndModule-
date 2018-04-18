@@ -1,0 +1,5 @@
+=============Kubernetes
+1) kubeadm we will cover
+2) kops tool which is built on top kubeadm ( highly available Kubernetes clusters on AWS )will eventually support other platforms as well (Google Kubernetes Engine, VMware,
+vSphere, and so on)
+3) $ minikube start

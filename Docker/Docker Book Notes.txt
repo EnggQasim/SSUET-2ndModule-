@@ -1,0 +1,317 @@
+docker container run -it -v d:\demo1:/hello1 --name xyz alpine:latest
+
+docker tag saylani:latest sirqasim/saylani:latest
+
+docker push sirqasim/saylani:latest
+
+
+=======Chapter#00
+I’ve divided the book into two sections:
+	The big picture stuff
+	The technical stuff
+
+Every chapter in the technical stuff section is divided into three parts:
+	The TLDR
+	The deep dive
+	The commands
+
+Container Techonologies Name
+	kernel namespaces, control groups, and of course Docker.
+
+These companies are working on containers technologies.
+  System/360 on the Mainframe. BSD Jails and Solaris Zones are
+  some other well-known examples of Unix-type container technologies
+
+Docker, Inc. started its life as a platform as a service (PaaS)
+
+They created a new open standard called appc that defined things like image
+format and container runtime. They also created an implementation of the spec
+called rkt (pronounced “rocket”).
+
+At the time of writing, the OCI has published two specifications (standards) -
+	The image-spec
+	The runtime-spec
+
+========Install Docker3=======
+First up, pre-requisites. Docker for Windows requires:
+Windows 10 Pro | Enterprise | Education (1511 November update, Build
+10586 or later)
+Must be 64-bit
+The Hyper-V and Containers features must be enabled in Windows
+Hardware virtualization support must be enabled in your system’s BIOS
+
+go to powerShall
+	docker version
+
+C:\Program Files\Docker\Docker>dockercli -SwitchDaemon
+
+docker version
+
+C:\> dockercli -Version
+
+C:\> docker --version
+Docker version 1.12.1, build 23cf638, experimental
+C:\> docker-compose --version
+docker-compose version 1.13.0, build 1719ceb8
+C:\> docker-machine --version
+docker-machine version 0.11.0, build 5b27455
+C:\> notary version
+notary
+Version: 0.4.3
+Git commit: 9211198
+
+Run the docker image ls command on your Docker host.
+$ docker image ls
+REPOSITORY TAG IMAGE ID CREATED SIZE
+
+$ docker image pull ubuntu:latest
+$ docker image pull  microsoft/powershell:nanoserver
+
+Run the docker image ls command again to see the image you just pulled.
+$ docker images
+REPOSITORY TAG IMAGE ID CREATED SIZE
+ubuntu latest bd3d4369aebc 11 days ago 126.6 MB
+
+For Linux:
+$ docker container run -it ubuntu:latest /bin/bash
+root@6dc20d508db0:/#
+For Windows:
+> docker container run -it microsoft/powershell:nanoserver PowerShell.exe
+Windows PowerShell
+Copyright (C) 2016 Microsoft Corporation. All rights reserved.
+PS C:\>
+(-it flage for interactive)
+
+Windows example:
+PS C:\> ps
+
+Press Ctrl-PQ to exit the container without terminating it
+
+$ docker container ls
+
+Windows example:
+This example references a container called “pensive_hamilton”. The name of
+your container will be different, so remember to substitute “pensive_hamilton”
+with the name or ID of the container running on your Docker host.
+> docker container exec -it pensive_hamilton PowerShell.exe
+
+$ docker container stop vigilant_borg
+vigilant_borg
+$
+$ docker container rm vigilant_borg
+vigilant_borg
+
+$ docker container ls
+
+clone dockerize repository and run it
+Be sure to perform this command from within the directory containing the app
+code and Dockerfile.
+$ docker image build -t test:latest .
+
+$ docker image ls
+
+Windows example:
+> docker container run -d \
+--name web1 \
+-p 8000:80 \
+test:latest
+
+=========Chapter#5========
+docker daemon
+LXC (linux component provider)
+Now docker inc created own libcontainer alternate to LXC
+
+$ docker container run --name ctr1 -it alpine:latest sh
+
+=========Chapter#6==========
+The local image repository on a Linux-based Docker host is usually located at
+/var/lib/docker/<storage-driver>. On Windows-based Docker hosts this is
+C:\ ProgramData\docker\windowsfilter.
+
+$ docker image ls
+
+$ docker image pull ubuntu:latest
+$ docker image pull alpine:latest
+
+$ docker image ls
+
+$ docker image pull microsof/powershell
+$ docker image pull microsot/dotnet:latest
+
+$ docker image ls
+
+docker image pull <repository>:<tag>
+
+$ docker image pull mongo:3.3.11
+//This will pull the image tagged as `3.3.11`
+//from the official `mongo` repository.
+$ docker image pull redis:latest
+//This will pull the image tagged as `latest`
+//from the official `redis` repository.
+$ docker image pull alpine
+//This will pull the image tagged as `latest`
+//from the official `alpine` repository.
+
+unofficial repository
+$ docker image pull nigelpoulton/tu-demo:v2
+//This will pull the image tagged as `v2`
+//from the `tu-demo` repository within the namespace
+//of my personal Docker Hub account.
+
+> docker image pull microsoft/powershell:nanoserver
+> docker image pull microsoft/dotnet:latest
+
+Google Container Registry (GCR)
+- docker pull
+gcr.io/nigelpoulton/tu-demo:v2 
+
+the -a flag to them docker
+image pull command.
+
+$ docker image pull -a nigelpoulton/tu-demo
+
+$ docker image pull ubuntu:latest
+latest: Pulling from library/ubuntu
+952132ac251a: Pull complete
+82659f8f1b76: Pull complete
+c19118ca682d: Pull complete
+8296858250fe: Pull complete
+24e0251a0e2c: Pull complete
+Digest: sha256:f4691c96e6bbaa99d...28ae95a60369c506dd6e6f6ab
+Status: Downloaded newer image for ubuntu:latest
+
+Another way to see the layers of an image is to inspect the image with the
+docker image inspect command. The example below inspects the same
+ubuntu:latest image.
+$ docker image inspect ubuntu:latest
+
+$ docker image pull alpine
+Using default tag: latest
+latest: Pulling from library/alpine
+e110a4a17941: Pull complete
+Digest: sha256:3dcdb92d7432d56604d...6d99b889d0626de158f73a
+Status: Downloaded newer image for alpine:latest
+$
+$ docker image ls --digests alpine
+REPOSITORY TAG DIGEST IMAGE ID CREATED SIZE
+alpine latest sha256:3dcd...f73a 4e38e38c8ce0 10 weeks ago 4.8 MB
+
+Digest
+$ docker image rm alpine:latest
+
+Delete the images pulled in the previous steps with the docker image rm
+command. The example below deletes an image by its ID, this might be different
+on your system.
+$ docker image rm 02674b9cb179
+
+If you are performing the following command on a Windows system, it will only
+work in a PowerShell terminal. It will not work on a CMD prompt.
+$ docker image rm $(docker image ls -q) -f
+To understand how this works, download a couple of images and then run
+docker image ls -q.
+$ docker image pull alpine
+
+$ docker image pull alpine
+Using default tag: latest
+latest: Pulling from library/alpine
+e110a4a17941: Pull complete
+Digest: sha256:3dcdb92d7432d5...3626d99b889d0626de158f73a
+Status: Downloaded newer image for alpine:latest
+$
+$ docker image pull ubuntu
+Using default tag: latest
+latest: Pulling from library/ubuntu
+952132ac251a: Pull complete
+82659f8f1b76: Pull complete
+c19118ca682d: Pull complete
+8296858250fe: Pull complete
+24e0251a0e2c: Pull complete
+Digest: sha256:f4691c96e6bba...128ae95a60369c506dd6e6f6ab
+Status: Downloaded newer image for ubuntu:latest
+$
+$ docker image ls -q
+bd3d4369aebc
+4e38e38c8ce0
+
+=========Chapter#7=======
+
+run -it microsoft/powershell:nanoserver PowerShell.exess
+
+Windows host running in Linux containers mode) your shell will attach to the
+container’s shell for 10 seconds and then exit: docker container run
+alpine:latest sleep 10. You can do the same with a Windows container with
+the following command docker container run
+microsoft/powershell:nanoserver Start-Sleep -s 10.
+
+You can manually stop a container with the docker container stop command,
+and then restart it with docker container start. To get rid of a container
+forever you have to explicitly delete it using docker container rm.
+
+//Run this command on Linux systems not using Systemd
+$ service docker status
+docker start/running, process 29393
+//Run this command on Linux systems that are using Systemd
+$ systemctl is-active docker
+active
+//Run this command on Windows Server 2016 systems from a PowerShell window
+> Get-Service docker
+Status Name DisplayName
+------ ---- -----------
+Running Docker docker
+
+root@3027eb644874:/# ps -elf
+
+$ docker container exec -it 3027eb644874 bash
+
+$ docker container stop 3027eb64487
+3027eb64487
+$ docker container rm 3027eb64487
+3027eb64487
+
+$ docker container stop percy
+percy
+$
+$ docker container rm percy
+percy
+$
+$ docker container ls -a
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+
+$ docker container run -d --name webserver -p 80:8080 \
+nigelpoulton/pluralsight-docker-ci
+
+Notice that your shell prompt hasn’t changed. This is because we started this
+container in the background with the -d flag. Starting a container in the
+background does not attach it to your terminal.
+
+
+
+
+
+
+
+===========Chapter#9===
+$ docker swarm init \
+--advertise-addr 10.0.0.1:2377 \
+--listen-addr 10.0.0.1:2377
+Swarm initialized: current node (d21lyz...c79qzkx) is now a manager.
+
+$ docker node ls
+
+$ docker swarm join-token worker
+To add a manager to this swarm, run the following command:
+docker swarm join \
+--token SWMTKN-1-0uahebax...c87tu8dx2c \
+10.0.0.1:2377
+$ docker swarm join-token manager
+To add a manager to this swarm, run the following command:
+docker swarm join \
+--token SWMTKN-1-0uahebax...ue4hv6ps3p \
+10.0.0.1:2377
+
+$ docker swarm join \
+--token SWMTKN-1-0uahebax...c87tu8dx2c \
+10.0.0.1:2377 \
+--advertise-addr 10.0.0.4:2377 \
+--listen-addr 10.0.0.4:2377
+This node joined a swarm as a worker.
